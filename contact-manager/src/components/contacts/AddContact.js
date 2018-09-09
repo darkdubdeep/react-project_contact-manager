@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import {Consumer} from '../../context'
-import uuid from 'uuid';
-import TextInputGroup from '../layout/TextInputGroup'
-
+import { Consumer } from "../../context";
+import uuid from "uuid";
+import TextInputGroup from "../layout/TextInputGroup";
 
 class AddContact extends Component {
   state = {
     name: "",
     email: "",
-    phone: ""
+    phone: "",
+    errors: {}
   };
 
   onChange = e =>
@@ -17,53 +17,89 @@ class AddContact extends Component {
     });
   onSubmit = (dispatch, e) => {
     e.preventDefault();
-    const {name, email, phone} = this.state;
+    const { name, email, phone } = this.state;
+
+    //validation stuff
+    if (name === "") {
+      this.setState({
+        errors: {
+          name: "Name id Required"
+        }
+      });
+      return;
+    }
+    if (email === "") {
+      this.setState({
+        errors: {
+          email: "email id Required"
+        }
+      });
+      return;
+    }
+    if (phone === "") {
+      this.setState({
+        errors: {
+          phone: "email id Required"
+        }
+      });
+      return;
+    }
+
     const newContact = {
       id: uuid(),
       name,
       email,
       phone
-    }
-    dispatch ({
-      type: 'ADD_CONTACT', payload: newContact
-    })
+    };
+    dispatch({
+      type: "ADD_CONTACT",
+      payload: newContact
+    });
     this.setState({
-      name: '',
-      email: '',
-      phone: '',
-    })
+      name: "",
+      email: "",
+      phone: "",
+      errors: ""
+    });
+
+    this.props.history.push("/");
   };
   render() {
-    const { name, email, phone } = this.state;
+    const { name, email, phone, errors } = this.state;
     return (
       <Consumer>
         {value => {
-          const {dispatch} = value;
-          return(
+          const { dispatch } = value;
+          return (
             <div className="card mb-3">
-              <div className="card-header">Please add contact in the form below</div>
+              <div className="card-header">
+                Please add contact in the form below
+              </div>
               <div className="card-body">
                 <form onSubmit={this.onSubmit.bind(this, dispatch)}>
-                  <TextInputGroup 
+                  <TextInputGroup
                     label="Name"
                     name="name"
                     placeholder="Enter Name"
                     value={name}
                     onChange={this.onChange}
+                    error={errors.name}
                   />
-                  <TextInputGroup 
+                  <TextInputGroup
                     label="Email"
                     name="email"
                     placeholder="Enter Email"
                     value={email}
                     onChange={this.onChange}
+                    error={errors.email}
                   />
-                  <TextInputGroup 
+                  <TextInputGroup
                     label="Phone"
                     name="phone"
                     placeholder="Enter Phone"
                     value={phone}
                     onChange={this.onChange}
+                    error={errors.phone}
                   />
                   <input
                     type="submit"
@@ -73,10 +109,10 @@ class AddContact extends Component {
                 </form>
               </div>
             </div>
-          )
+          );
         }}
       </Consumer>
-    )
+    );
   }
 }
 export default AddContact;

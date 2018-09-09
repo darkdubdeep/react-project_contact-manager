@@ -4,3 +4,13 @@
 .fa-times {
   color: red;
 }
+
+.fa-home,
+.fa-plus,
+.fa-question {
+  width: 25px;
+}
+
+.navbar a {
+  display: inline-flex;
+}
