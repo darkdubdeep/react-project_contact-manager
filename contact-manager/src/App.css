@@ -14,3 +14,22 @@
 .navbar a {
   display: inline-flex;
 }
+.fa-angle-right,
+.fa-angle-down {
+  padding-left: 10px;
+}
+
+.fa-times {
+  position: absolute;
+  right: 20px;
+  top: 23px;
+}
+
+.fa-pencil-alt {
+  color: #f2d9d7;
+  padding-right: 10px;
+  font-size: 20px;
+  padding-top: 5px;
+  position: absolute;
+  right: 40px;
+}
