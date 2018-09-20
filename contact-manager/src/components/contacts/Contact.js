@@ -6,14 +6,24 @@ import { Link } from "react-router-dom";
 
 class Contact extends Component {
   state = {
-    showContactInfo: false
+    showContactInfo: false,
+    contactIsDeleted: true
   };
   onShowClick = e => {
     this.setState({ showContactInfo: !this.state.showContactInfo });
   };
   onClickDelete = async (id, dispatch) => {
+    this.setState({
+      contactIsDeleted: false
+    });
     try {
-      await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+      await axios
+        .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+        .then(response => {
+          this.setState({
+            contactIsDeleted: true
+          });
+        });
       dispatch({
         type: "DELETE_CONTACT",
         payload: id
@@ -28,13 +38,14 @@ class Contact extends Component {
 
   render() {
     const { id, name, email, phone } = this.props.contact;
-    const { showContactInfo } = this.state;
+    const { showContactInfo, contactIsDeleted } = this.state;
     return (
       <Consumer>
         {value => {
           const { dispatch } = value;
           return (
             <div className="card card-body mb-3">
+              {contactIsDeleted !== true ? <h2>Loading...</h2> : null}
               <h4>
                 {name}{" "}
                 {showContactInfo === false ? (

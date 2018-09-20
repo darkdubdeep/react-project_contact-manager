@@ -7,13 +7,13 @@ class Contacts extends Component {
     return (
       <Consumer>
         {value => {
-          const { contacts } = value;
+          const { contacts, contactsIsLoaded, contactIsDeleted } = value;
           return (
             <React.Fragment>
               <h1 className="display-4 mb-2 contact-list-header">
                 <span className="text-danger"> Contact </span> List
               </h1>
-              {!contacts.length ? <h2>Loading...</h2> : null}
+              {contactsIsLoaded !== true ? <h2>Loading...</h2> : null}
               {contacts.map(contact => (
                 <Contact key={contact.id} contact={contact} />
               ))}

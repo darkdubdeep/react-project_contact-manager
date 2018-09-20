@@ -33,6 +33,8 @@ const reducer = (state, action) => {
 export class Provider extends Component {
   state = {
     contacts: [],
+    contactsIsLoaded: false,
+    contactIsDeleted: false,
     dispatch: action => {
       this.setState(state => reducer(state, action));
     }
@@ -41,7 +43,8 @@ export class Provider extends Component {
   async componentDidMount() {
     const res = await axios.get("https://jsonplaceholder.typicode.com/users");
     this.setState({
-      contacts: res.data
+      contacts: res.data,
+      contactsIsLoaded: true
     });
   }
   render() {
