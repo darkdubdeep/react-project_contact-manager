@@ -7,7 +7,7 @@ class Contacts extends Component {
     return (
       <Consumer>
         {value => {
-          const { contacts, contactsIsLoaded, contactIsDeleted } = value;
+          const { contacts, contactsIsLoaded } = value;
           return (
             <React.Fragment>
               <h1 className="display-4 mb-2 contact-list-header">

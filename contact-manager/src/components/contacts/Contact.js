@@ -45,7 +45,15 @@ class Contact extends Component {
           const { dispatch } = value;
           return (
             <div className="card card-body mb-3">
-              {contactIsDeleted !== true ? <h2>Loading...</h2> : null}
+              {contactIsDeleted !== true ? (
+                <div className="deletingContactIndicator">
+                  <img
+                    className="delete-spinner"
+                    src={require("./delete-spinner-small.gif")}
+                    alt=""
+                  />
+                </div>
+              ) : null}
               <h4>
                 {name}{" "}
                 {showContactInfo === false ? (
