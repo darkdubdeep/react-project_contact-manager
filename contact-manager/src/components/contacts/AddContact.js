@@ -21,7 +21,6 @@ class AddContact extends Component {
       email,
       phone
     }
-
     dispatch ({
       type: 'ADD_CONTACT', payload: newContact
     })
@@ -30,13 +29,9 @@ class AddContact extends Component {
       email: '',
       phone: '',
     })
-
   };
   render() {
-
     const { name, email, phone } = this.state;
-
-
     return (
       <Consumer>
         {value => {
